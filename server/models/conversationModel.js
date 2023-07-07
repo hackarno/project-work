@@ -15,9 +15,16 @@ const conversationSchema = new Schema({
         type: String,
         required: true
     },
+    code: {
+        type: String,
+        required: true
+    },
     user_id: {
         type: String,
         required: true
+    },
+    comments: {
+        type: Array
     }
 }, {timestamps: true});
 

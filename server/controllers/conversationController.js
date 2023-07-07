@@ -40,7 +40,7 @@ const getConversation = async (req, res) => {
 //Create a new conversation
 const createConversation = async (req, res) => {
     //Extracting the relevant data for Schema from request posted
-    const {title, text} = req.body 
+    const {title, text, code} = req.body 
 
     //Checking if all the form fields include something. If not, error is handled before trying db submit
 
@@ -52,6 +52,9 @@ const createConversation = async (req, res) => {
     if(!text) {
         emptyFields.push("text")
     }
+    if(!code) {
+        emptyFields.push("code")
+    }
     if(emptyFields.length > 0) {
         //If not all fields are submitted, error-message and array containing blank fields is sent back
         //Array sent makes conditional styling possible in frontend 
@@ -62,7 +65,7 @@ const createConversation = async (req, res) => {
         //Grabbing user id to store it to conversation document
         const user_id = req.user.id
         //First try to create new document to the database with data extracted from the request
-        const conversation = await Conversation.create({title, text, user_id}); 
+        const conversation = await Conversation.create({title, text, code, user_id}); 
         res.status(200).json(conversation)
 
     } catch (error) {
