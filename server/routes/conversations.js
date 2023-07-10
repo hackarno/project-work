@@ -14,7 +14,7 @@ const {
 //This is to check authorization to access routes
 const requireAuth = require("../middleware/requireAuth")
 
-router.use(requireAuth)
+// router.use(requireAuth)
 
 // No longer needed? const Conversation = require("../models/conversationModel")
 
@@ -28,12 +28,12 @@ router.get("/", getConversations)
 router.get("/:id", getConversation)
 
 //Post a new conversation starter
-router.post("/", createConversation)
+router.post("/", requireAuth, createConversation)
 
 //Delete a conversation
-router.delete("/:id", deleteConversation)
+router.delete("/:id", requireAuth, deleteConversation)
 
 //Update a conversation
-router.patch("/:id", updateConversation)
+router.patch("/:id", requireAuth, updateConversation)
 
 module.exports = router;

@@ -8,11 +8,11 @@ const mongoose = require("mongoose");
 const getConversations = async (req, res) => {
 
     //Limiting conversations by creator !!! Not final functionality, note passed user_id in .find function below
-    const user_id = req.user._id
+    //const user_id = req.user._id
 
     //Finding and fetching all conversation documents from database. Object is left empty in the find function because there are no searchwords
     //Sorting the results by creating date with newest one on top
-    const conversations = await Conversation.find({ user_id }).sort({createdAt: -1});
+    const conversations = await Conversation.find({}).sort({createdAt: -1});
     res.status(200).json(conversations);
 }
 
@@ -64,8 +64,11 @@ const createConversation = async (req, res) => {
     try {
         //Grabbing user id to store it to conversation document
         const user_id = req.user.id
+        
+        //Creating empty comment array
+        const comments = [];
         //First try to create new document to the database with data extracted from the request
-        const conversation = await Conversation.create({title, text, code, user_id}); 
+        const conversation = await Conversation.create({title, text, code, user_id, comments}); 
         res.status(200).json(conversation)
 
     } catch (error) {
