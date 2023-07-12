@@ -40,7 +40,7 @@ const getConversation = async (req, res) => {
 //Create a new conversation
 const createConversation = async (req, res) => {
     //Extracting the relevant data for Schema from request posted
-    const {title, text, code} = req.body 
+    const {title, text, code, userName} = req.body 
 
     //Checking if all the form fields include something. If not, error is handled before trying db submit
 
@@ -68,7 +68,7 @@ const createConversation = async (req, res) => {
         //Creating empty comment array
         const comments = [];
         //First try to create new document to the database with data extracted from the request
-        const conversation = await Conversation.create({title, text, code, user_id, comments}); 
+        const conversation = await Conversation.create({title, text, code, userName, user_id, comments}); 
         res.status(200).json(conversation)
 
     } catch (error) {
@@ -78,6 +78,11 @@ const createConversation = async (req, res) => {
 }
 
 //Delete a conversation
+
+//Please note, that this functionality is currently not linked to any API route.
+//Routing can be enabled from routes/conversations.js, but as it stands, any user can make delete request
+//Proper authentication functionality is lacking
+
 const deleteConversation = async (req, res) => {
     //Grabbing id property from request
     const { id } = req.params;
@@ -98,6 +103,7 @@ const deleteConversation = async (req, res) => {
 }
 
 //Update a conversation
+
 const updateConversation = async (req, res) => {
     //Grabbing id property from request
     const { id } = req.params;
@@ -107,9 +113,14 @@ const updateConversation = async (req, res) => {
         return res.status(404).json({error: "Conversation does not exist"})
     }
 
+    //Only updates to comments are passed through. No other updates are to be made through this API
+
+    const update = {"comments": req.body.comments}
+    console.log(update)
+
     //Updating only document parameters that were received in the request body
     const conversation = await Conversation.findOneAndUpdate({_id: id}, {
-        ...req.body
+        ...update
     }, {new:true});
 
     if (!conversation) {

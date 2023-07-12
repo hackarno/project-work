@@ -25,14 +25,14 @@ app.use((req, res, next) => {
 app.use("/api/conversations", conversationRoutes);
 app.use("/api/user", userRoutes);
 
-//Connect to db (Mongo Atlass)
+//Connect to db (Mongo Atlas)
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
 
         //Start listening on requests once database connection is up and running
         app.listen(process.env.PORT, () => {
-            console.log("Connected to Mongo Atlas database and server.js listening on port: 4000");
+            console.log("Connected to Mongo Atlas database and server.js listening on port: "+process.env.PORT);
         });
 
     })

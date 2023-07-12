@@ -31,7 +31,8 @@ router.get("/:id", getConversation)
 router.post("/", requireAuth, createConversation)
 
 //Delete a conversation
-router.delete("/:id", requireAuth, deleteConversation)
+//Currently disabled
+//router.delete("/:id", requireAuth, deleteConversation)
 
 //Update a conversation
 router.patch("/:id", requireAuth, updateConversation)
