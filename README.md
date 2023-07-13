@@ -16,9 +16,11 @@ Backend has been created with Node.js and Express. Backend code is in the server
 
 Web application utilizes Mongodb Atlas -cloud database as a database. Mongoose object modeling library is also utilized. Two different custom Mongoose Schema-models are used in this application: conversationModel.js to store conversation data and userModel.js to store user data.
 
-Backend offers conversation and user data for frontend via APIs. Conversation data can be read, modified, deleted and created through the conversation related APIs. User API offers means to login existing users and register new users. Also jsonwebtokens are created and provided via this API. 
+Backend offers conversation and user data for frontend via APIs. Conversation data can be read, modified, deleted* and created through the conversation related APIs. User API offers means to login existing users and register new users. Also jsonwebtokens are created and provided via this API. 
 
 Backend has a middleware function for user authentication and it is used whenever there is need for authentication on the backend side. For example when trying to create new post via conversation API.
+
+*delete functionality has been disabled and needs more defined authorization for productionworthy frontend applications.
 
 _FRONTEND:_ 
 
